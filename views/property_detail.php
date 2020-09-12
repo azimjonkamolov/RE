@@ -1,4 +1,7 @@
-<?php include'header.php';?>
+<?php 
+    include'header.php';
+    use App\Classes\RealEstate\RealEstate;
+?>
 <!-- banner -->
 <div class="inside-banner">
   <div class="container"> 
@@ -13,30 +16,21 @@
             <div class="col-lg-3 col-sm-4 hidden-xs">
                 <div class="hot-properties hidden-xs">
                     <h4>Hot Properties</h4>
+                    <?php
+                        require_once ('../vendor/autoload.php');
+                        $real_estate = new RealEstate();
+                        $all_data = $real_estate->viewTopData();
+                        foreach($all_data as $single_data){
+                            $image = explode(",", $single_data->images);
+                    ?>
                     <div class="row">
-                        <div class="col-lg-4 col-sm-5"><img src="../resources/images/properties/4.jpg" class="img-responsive img-circle" alt="properties"/></div>
+                        <div class="col-lg-4 col-sm-5"><img src="../resources/images/properties/<?=$image[0]?>" class="img-responsive img-circle" alt="<?=$single_data->name?>"></div>
                         <div class="col-lg-8 col-sm-7">
-                        <h5><a href="property_detail.php">Integer sed porta quam</a></h5>
-                        <p class="price">$300,000</p> </div>
+                            <h5><a href="property_detail.php?id=<?=$single_data->id?>"><?=$single_data->name?></a></h5>
+                            <p class="price">$ <?=$single_data->monthly_charge?></p> 
+                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-4 col-sm-5"><img src="../resources/images/properties/1.jpg" class="img-responsive img-circle" alt="properties"/></div>
-                        <div class="col-lg-8 col-sm-7">
-                        <h5><a href="property_detail.php">Integer sed porta quam</a></h5>
-                        <p class="price">$300,000</p> </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4 col-sm-5"><img src="../resources/images/properties/3.jpg" class="img-responsive img-circle" alt="properties"/></div>
-                        <div class="col-lg-8 col-sm-7">
-                        <h5><a href="property_detail.php">Integer sed porta quam</a></h5>
-                        <p class="price">$300,000</p> </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4 col-sm-5"><img src="../resources/images/properties/2.jpg" class="img-responsive img-circle" alt="properties"/></div>
-                        <div class="col-lg-8 col-sm-7">
-                        <h5><a href="property_detail.php">Integer sed porta quam</a></h5>
-                        <p class="price">$300,000</p> </div>
-                    </div>
+                    <?php } ?>
                 </div>
                 <div class="advertisement">
                     <h4>Advertisements</h4>
@@ -46,7 +40,6 @@
             <div class="col-lg-9 col-sm-8 ">
                 <?php
                     require_once ('../vendor/autoload.php');
-                    use App\Classes\RealEstate\RealEstate;
                     $real_estate = new RealEstate();
                     $single_data = $real_estate->viewSingleData($_GET['id']);
                 ?>

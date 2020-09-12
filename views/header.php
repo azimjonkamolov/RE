@@ -39,11 +39,11 @@
             <!-- Nav Starts -->
             <div class="navbar-collapse  collapse">
                 <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="index.php">Home</a></li>
-                <li><a href="about.php">About</a></li>
-                <li><a href="agents.php">Agents</a></li>         
-                <li><a href="blog.php">Blog</a></li>
-                <li><a href="contact.php">Contact</a></li>
+                    <li class="<?php if(basename($_SERVER['PHP_SELF'])=="index.php"){echo "active";}?>"><a href="index.php">Home</a></li>
+                    <li class="<?php if(basename($_SERVER['PHP_SELF'])=="about.php"){echo "active";}?>"><a href="about.php">About us</a></li>
+                    <li class="<?php if(basename($_SERVER['PHP_SELF'])=="agents.php"){echo "active";}?>"><a href="agents.php">Agents</a></li>
+                    <li class="<?php if(basename($_SERVER['PHP_SELF'])=="blog.php"){echo "active";}?>"><a href="blog.php">Blogs</a></li>
+                    <li class="<?php if(basename($_SERVER['PHP_SELF'])=="contact.php"){echo "active";}?>"><a href="contact.php">Contacts</a></li>
                 </ul>
             </div>
             <!-- #Nav Ends -->

@@ -65,31 +65,22 @@
             return $statement_handler->fetch();
         }
         // Get Search
-        public function search($request_array){
-            $sql = "SELECT * FROM 'real_estate' WHERE 'name' LIKE '%".$request_array['search']."%' OR 'address' LIKE '%".$request_array['search']."%'";
+        public function search($term){
+            $sql = "SELECT * FROM `real_estate` WHERE `name` LIKE '%".$term."%' OR `address` LIKE '%".$term."%'";
             $statement_handler = $this->database_handler->query($sql);
             $statement_handler->setFetchMode(PDO::FETCH_OBJ);
             $all_data = $statement_handler->fetchAll();
             return $all_data;
         }
-        public function getAllKeywords(){
-            $_all_keywords = array();
-            $words_arr = array();
-            $all_data = $this -> viewAllData();
-            foreach($all_data as $single_data){
-                $_all_keywords[] = trim($single_data->name);
+        public function viewTopData(){
+            $sql = "SELECT * FROM `real_estate` WHERE top > 0";
+            $statement_handler = $this->database_handler->query($sql);
+            $statement_handler->setFetchMode(PDO::FETCH_OBJ);
+            $value_count = 0;
+            for($value_count = 0; $value_count < 5; $value_count++)
+            {
+                $all_data[$value_count] = $statement_handler->fetch();
             }
-            $all_data = $this->viewAllData();
-            foreach($all_data as $single_data){
-                $each_string = strip_tags($single_data->name);
-                $each_string = trim($each_string);
-                $each_string = preg_replace("/\r|n/", " ", $each_string);
-                $each_string = str_replace("&nbsp;","", $each_string);
-                $words_arr = explode(" ", $each_string);
-                foreach($words_arr as $each_word){
-                    $_all_keywords[] = trim($each_word);
-                }
-            }
-            return array_unique($_all_keywords);
+            return $all_data;
         }
     }

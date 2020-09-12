@@ -1,62 +1,29 @@
-<?php include'header.php';?>
+<?php 
+    include'header.php';
+    use App\Classes\RealEstate\RealEstate;
+?>
 <div class="">
     <div id="slider" class="sl-slider-wrapper">
         <div class="sl-slider">
+            <?php
+                require_once ('../vendor/autoload.php');
+                $real_estate = new RealEstate();
+                $all_data = $real_estate->viewTopData();
+                foreach($all_data as $single_data){
+                    $image = explode(",", $single_data->images);
+            ?>
             <div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="-25" data-slice2-rotation="-25" data-slice1-scale="2" data-slice2-scale="2">
                 <div class="sl-slide-inner">
-                    <div class="bg-img bg-img-1"></div>
-                    <h2><a href="#">2 Bed Rooms and 1 Dinning Room Aparment on Sale</a></h2>
+                    <div class="bg-img"><img style="width: 100%; height: 100%;" src="../resources/images/properties/<?=$image[0]?>" alt="<?=$single_data->name?>"></div>
+                    <h2><a href="property_detail.php?id=<?=$single_data->id?>"><?=$single_data->name?></a></h2>
                     <blockquote>              
-                    <p class="location"><span class="glyphicon glyphicon-map-marker"></span> 1890 Syndey, Australia</p>
-                    <p>Until he extends the circle of his compassion to all living things, man will not himself find peace.</p>
-                    <cite>$ 20,000,000</cite>
+                        <p class="location"><span class="glyphicon glyphicon-map-marker"></span> <?=$single_data->address?></p>
+                        <p><?=$single_data->description?></p>
+                        <cite> Price: $ <?=$single_data->monthly_charge?></cite>
                     </blockquote>
                 </div>
             </div>
-            <div class="sl-slide" data-orientation="vertical" data-slice1-rotation="10" data-slice2-rotation="-15" data-slice1-scale="1.5" data-slice2-scale="1.5">
-                <div class="sl-slide-inner">
-                    <div class="bg-img bg-img-2"></div>
-                    <h2><a href="#">2 Bed Rooms and 1 Dinning Room Aparment on Sale</a></h2>
-                    <blockquote>              
-                    <p class="location"><span class="glyphicon glyphicon-map-marker"></span> 1890 Syndey, Australia</p>
-                    <p>Until he extends the circle of his compassion to all living things, man will not himself find peace.</p>
-                    <cite>$ 20,000,000</cite>
-                    </blockquote>
-                </div>
-            </div>
-            <div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="3" data-slice2-rotation="3" data-slice1-scale="2" data-slice2-scale="1">
-                <div class="sl-slide-inner">
-                <div class="bg-img bg-img-3"></div>
-                <h2><a href="#">2 Bed Rooms and 1 Dinning Room Aparment on Sale</a></h2>
-                <blockquote>              
-                <p class="location"><span class="glyphicon glyphicon-map-marker"></span> 1890 Syndey, Australia</p>
-                <p>Until he extends the circle of his compassion to all living things, man will not himself find peace.</p>
-                <cite>$ 20,000,000</cite>
-                </blockquote>
-                </div>
-            </div>
-            <div class="sl-slide" data-orientation="vertical" data-slice1-rotation="-5" data-slice2-rotation="25" data-slice1-scale="2" data-slice2-scale="1">
-                <div class="sl-slide-inner">
-                    <div class="bg-img bg-img-4"></div>
-                    <h2><a href="#">2 Bed Rooms and 1 Dinning Room Aparment on Sale</a></h2>
-                    <blockquote>              
-                    <p class="location"><span class="glyphicon glyphicon-map-marker"></span> 1890 Syndey, Australia</p>
-                    <p>Until he extends the circle of his compassion to all living things, man will not himself find peace.</p>
-                    <cite>$ 20,000,000</cite>
-                    </blockquote>
-                </div>
-            </div>
-            <div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="-5" data-slice2-rotation="10" data-slice1-scale="2" data-slice2-scale="1">
-                <div class="sl-slide-inner">
-                    <div class="bg-img bg-img-5"></div>
-                    <h2><a href="#">2 Bed Rooms and 1 Dinning Room Aparment on Sale</a></h2>
-                    <blockquote>              
-                    <p class="location"><span class="glyphicon glyphicon-map-marker"></span> 1890 Syndey, Australia</p>
-                    <p>Until he extends the circle of his compassion to all living things, man will not himself find peace.</p>
-                    <cite>$ 20,000,000</cite>
-                    </blockquote>
-                </div>
-            </div>
+            <?php } ?>
         </div><!-- /sl-slider -->
         <nav id="nav-dots" class="nav-dots">
             <span class="nav-dot-current"></span>
@@ -74,36 +41,38 @@
         <div class="searchbar">
             <div class="row">
                 <div class="col-lg-6 col-sm-6">
-                    <input type="text" class="form-control" placeholder="Search of Properties">
-                    <div class="row">
-                        <div class="col-lg-3 col-sm-3 ">
-                            <select class="form-control">
-                                <option>Buy</option>
-                                <option>Rent</option>
-                                <option>Sale</option>
-                            </select>
+                    <form action="search_result.php" method="get" class="form form-group">
+                        <input type="text" class="form-control" name="search" placeholder="Search By Names/Address">
+                        <div class="row">
+                            <div class="col-lg-3 col-sm-3 ">
+                                <select class="form-control">
+                                    <option>Buy</option>
+                                    <option>Rent</option>
+                                    <option>Sale</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-sm-4">
+                                <select class="form-control">
+                                    <option>Price</option>
+                                    <option>$150,000 - $200,000</option>
+                                    <option>$200,000 - $250,000</option>
+                                    <option>$250,000 - $300,000</option>
+                                    <option>$300,000 - above</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-sm-4">
+                                <select class="form-control">
+                                    <option>Property</option>
+                                    <option>Apartment</option>
+                                    <option>Building</option>
+                                    <option>Office Space</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-sm-4">
+                                <button class="btn btn-success"  onclick="window.location.href='buysalerent.php'">Find Now</button>
+                            </div>
                         </div>
-                        <div class="col-lg-3 col-sm-4">
-                            <select class="form-control">
-                                <option>Price</option>
-                                <option>$150,000 - $200,000</option>
-                                <option>$200,000 - $250,000</option>
-                                <option>$250,000 - $300,000</option>
-                                <option>$300,000 - above</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-3 col-sm-4">
-                            <select class="form-control">
-                                <option>Property</option>
-                                <option>Apartment</option>
-                                <option>Building</option>
-                                <option>Office Space</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-3 col-sm-4">
-                            <button class="btn btn-success"  onclick="window.location.href='buysalerent.php'">Find Now</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="col-lg-5 col-lg-offset-1 col-sm-6 ">
                     <p>Join now and get updated with all the properties deals.</p>
@@ -120,7 +89,6 @@
         <div id="owl-example" class="owl-carousel">
             <?php
                 require_once ('../vendor/autoload.php');
-                use App\Classes\RealEstate\RealEstate;
                 $real_estate = new RealEstate();
                 $all_data = $real_estate->viewAllData();
                 foreach($all_data as $single_data){
@@ -129,9 +97,9 @@
                 <div class="properties">
                     <div class="image-holder"><img src="../resources/images/properties/<?=$image[0]?>" class="img-responsive" alt="properties"/>
                         <?php if($single_data->status == 0): ?>
-                            <div class="status new">New</div>
+                            <div class="status new">Available</div>
                         <?php else: ?>
-                            <div class="status sold">Sold</div>
+                            <div class="status sold">Booked</div>
                         <?php endif; ?>
                     </div>
                     <h4><a href="property_detail.php?id=<?=$single_data->id?>"><?=$single_data->name?></a></h4>
@@ -156,13 +124,12 @@
             <div class="col-lg-5 col-lg-offset-1 col-sm-3 recommended">
                 <h3>Recommended Properties</h3>
                 <div id="myCarousel" class="carousel slide">
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-                    <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-                    <li data-target="#myCarousel" data-slide-to="3" class=""></li>
-                </ol>
-                <!-- Carousel items -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+                        <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+                        <li data-target="#myCarousel" data-slide-to="3" class=""></li>
+                    </ol>
                     <div class="carousel-inner">
                         <div class="item active">
                             <div class="row">

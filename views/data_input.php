@@ -9,8 +9,9 @@
     if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
     }
-    for($i=1; $i<=20; $i++){
-        $sql = "UPDATE real_estate SET bed_room = '1', living_room = '2', parking = '1', kitchen = '2' WHERE id = $i";
+    for($i=1; $i<=4; $i++){
+        $sql = "INSERT INTO agents (agent_name, agent_email, agent_phone, agent_address, agent_about, agent_image) 
+        VALUES ('Tom $i', 'tom@email.com', '010-1020-3040', 'Seoul', 'Very talented and out-going seller of houses', '$i.jpg')";
         if (mysqli_query($conn, $sql)){
             echo $i;
             echo " New record created successfully<br>";
