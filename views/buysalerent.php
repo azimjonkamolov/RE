@@ -2,14 +2,12 @@
     include'header.php';
     use App\Classes\RealEstate\RealEstate;    
 ?>
-<!-- banner -->
 <div class="inside-banner">
     <div class="container"> 
         <span class="pull-right"><a href="index.php">Home</a> / Buy, Sale & Rent</span>
         <h2>Buy, Sale & Rent</h2>
     </div>
 </div>
-<!-- banner -->
 <div class="container">
     <div class="properties-listing spacer">
         <div class="row">
@@ -66,27 +64,6 @@
                         </div>
                     </div>
                     <?php } ?>
-                    <!-- <div class="row">
-                        <div class="col-lg-4 col-sm-5"><img src="../resources/images/properties/1.jpg" class="img-responsive img-circle" alt="properties"></div>
-                        <div class="col-lg-8 col-sm-7">
-                            <h5><a href="property_detail.php">Integer sed porta quam</a></h5>
-                            <p class="price">$300,000</p> 
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4 col-sm-5"><img src="../resources/images/properties/1.jpg" class="img-responsive img-circle" alt="properties"></div>
-                        <div class="col-lg-8 col-sm-7">
-                            <h5><a href="property_detail.php">Integer sed porta quam</a></h5>
-                            <p class="price">$300,000</p> 
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4 col-sm-5"><img src="../resources/images/properties/1.jpg" class="img-responsive img-circle" alt="properties"></div>
-                            <div class="col-lg-8 col-sm-7">
-                            <h5><a href="property_detail.php">Integer sed porta quam</a></h5>
-                            <p class="price">$300,000</p> 
-                        </div>
-                    </div> -->
                 </div>
             </div>
             <div class="col-lg-9 col-sm-8">
@@ -101,7 +78,6 @@
                     </div>
                 </div>
                 <div class="row">
-                    <!-- properties -->
                     <?php
                         require_once ('../vendor/autoload.php');
                         $real_estate = new RealEstate();
@@ -144,6 +120,4 @@
         </div>
     </div>
 </div>
-
-
 <?php include'footer.php';?>

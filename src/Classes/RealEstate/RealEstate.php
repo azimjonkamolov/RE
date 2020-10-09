@@ -77,8 +77,7 @@
             $statement_handler = $this->database_handler->query($sql);
             $statement_handler->setFetchMode(PDO::FETCH_OBJ);
             $value_count = 0;
-            for($value_count = 0; $value_count < 5; $value_count++)
-            {
+            for($value_count = 0; $value_count < 5; $value_count++){
                 $all_data[$value_count] = $statement_handler->fetch();
             }
             return $all_data;
